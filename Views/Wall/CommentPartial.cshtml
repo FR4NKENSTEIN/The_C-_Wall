@@ -1,0 +1,11 @@
+@model Comment
+
+<p>
+    <hr class="bg-secondary">
+    @Model.User.FirstName 
+    @Model.User.LastName <span class="text-info"> commented </span> at 
+    @Model.CreatedAt
+</p>
+<p>
+    @Model.Content
+</p>

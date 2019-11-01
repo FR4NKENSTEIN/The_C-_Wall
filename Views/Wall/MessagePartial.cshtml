@@ -1,0 +1,33 @@
+@model Message
+
+
+<p>
+   @Model.Messenger.FirstName 
+   @Model.Messenger.LastName <span class="text-primary"> wrote a message </span> at 
+   @Model.CreateAt
+</p>
+<p>
+   @Model.Content
+</p>
+
+<button type="button" class="btn btn-info m-2 btn-sm" data-toggle="collapse" data-target="#comment">
+   Comment
+</button>
+@if (DateTime.Now.Subtract(@Model.CreateAt).TotalMinutes <= 30 && @Model.UserId == @ViewBag.UserId)
+{
+   <a href="/delete/@Model.MessageId" class="btn btn-danger btn-sm">Delete</a>
+}
+<div class="my-2 collapse" id="comment">
+   <form asp-controller="Wall" asp-action="CommentCreator" method="post">
+      <textarea name="contents" rows="4" class="form-control" required></textarea>
+      <input type="hidden" value="@Model.MessageId" name="messageId">
+      <input type="submit" value="Post" class="btn btn-outline-primary m-2">
+   </form>
+</div>
+
+ @foreach (Comment c in @Model.Comments)
+{
+   <div class="my-2 d-block">
+   <partial class="d-block my-2" name="CommentPartial" model="@c"></partial>
+   </div>
+}

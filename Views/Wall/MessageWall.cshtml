@@ -1,0 +1,20 @@
+@model List<Message>
+
+<partial name="HeaderPartial" view-data="ViewData"></partial>
+<div class="container">
+<div>
+   <p>Write a Message</p>
+   <form asp-action="MessageMaker" asp-controller="Wall" method="post">
+      <textarea name="contents" rows="6" class="form-control" required></textarea>
+      <input type="submit" value="Post" class="btn btn-primary m-2">
+   </form>
+</div>
+@foreach (Message m in @Model)
+{
+   <hr class="d-block bg-primary">
+   <div class="container my-2 d-block">
+   <partial name="MessagePartial" model="@m" view-data="ViewData"></partial>
+   </div>
+}
+</div>
+
